@@ -28,7 +28,7 @@ const productRouter = require('./router/productRouter');
 const orderCustomerRouter = require('./router/orderCustomerRouter');
 const detailProduct = require('./router/detailRouter');
 const addCardRouter = require('./router/addCardRouter');
-const checkoutRouter = require('./router/checkoutRouter');
+const checkoutRouter = require('./router/checkOutRouter');
 
 app.use('/user',userAuthRouter);
 app.use('/products',productRouter);
