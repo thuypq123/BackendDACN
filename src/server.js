@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 const {connect} = require('./database/dbConnect');
 var cookieParser = require('cookie-parser');
 const app = express();
-const port = 3002;
+const port = process.env.PORT || 3002;
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended : true}));
