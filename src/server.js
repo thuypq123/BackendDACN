@@ -28,10 +28,12 @@ const productRouter = require('./router/productRouter');
 const orderCustomerRouter = require('./router/orderCustomerRouter');
 const detailProduct = require('./router/detailRouter');
 const addCardRouter = require('./router/addCardRouter');
+const checkoutRouter = require('./router/checkoutRouter');
 
 app.use('/user',userAuthRouter);
 app.use('/products',productRouter);
 app.use('/order',orderCustomerRouter);
 app.use('/detail',detailProduct);
 app.use('/addcard',addCardRouter);
+app.use('/checkout',checkoutRouter);
 app.listen(port, connect() );
