@@ -11,6 +11,7 @@ const orderSchema = new Schema({
     shipping_address: String,
     order_email: String,
     order_phone: String,
+    receiver_name: String,
     order_date: Date,
     createAt: Date,
 })

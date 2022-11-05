@@ -12,6 +12,7 @@ const customer = new Schema({
     phone: String,
     address: String,
     status: Boolean,
+    verify: Boolean,
     created_at: Date,
 });
 exports.customer = mongoose.model('customer', customer);

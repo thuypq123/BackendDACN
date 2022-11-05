@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 exports.postInforCheckouts = async (req, res) => {
     const customer_id = jwt.verify(req.body.token, process.env.SECRET).id;
-    const orderCustomer = await order.findOne({customer_id: customer_id, saved: false}).lean();
+    const orderCustomer = await order.findOne({customer_id: customer_id, saved: false});
     const orderDetailCustomer = await orderDetail.find({order_id: orderCustomer._id}).lean();
     const productsId  = orderDetailCustomer.map(item => item.product_id);
     const products = await product.find({_id: {$in: productsId}}).lean();
@@ -19,9 +19,30 @@ exports.postInforCheckouts = async (req, res) => {
             quantity: quantity
         }
     });
+    orderCustomer.total = totalPrice;
     const inforCheckOut = {
         products: arrProducts,
         total: totalPrice
     };
     res.json(inforCheckOut);
 };
+
+exports.postCheckoutInfo = async (req, res) => {
+    try{
+        const customer_id = jwt.verify(req.body.token, process.env.SECRET).id;
+        const { fullname, email, phone, address, order_date, receiver, payment, token } = req.body;
+        const orderCustomer = await order.findOne({customer_id: customer_id, saved: false});
+        orderCustomer.order_email = email;
+        orderCustomer.order_phone = phone;
+        orderCustomer.shipping_address = address;
+        orderCustomer.order_date = order_date;
+        orderCustomer.receiver_name = receiver;
+        orderCustomer.status == 'MOMO'? true:false;
+        orderCustomer.saved = true;
+        const test = await orderCustomer.save();
+        console.log(test);
+        res.json(test);
+    }catch{
+        res.json({status: 'error'});
+    }
+};  
