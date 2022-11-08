@@ -30,6 +30,8 @@ const detailProduct = require('./router/detailRouter');
 const addCardRouter = require('./router/addCardRouter');
 const checkoutRouter = require('./router/checkOutRouter');
 const verifyEmailRouter = require('./router/verifyEmailRouter');
+const resetMailRouter = require('./router/resetMailRouter');
+const profileRouter = require('./router/profileRouter');
 
 app.use('/user',userAuthRouter);
 app.use('/products',productRouter);
@@ -37,5 +39,7 @@ app.use('/order',orderCustomerRouter);
 app.use('/detail',detailProduct);
 app.use('/addcard',addCardRouter);
 app.use('/checkout',checkoutRouter);
-app.use('/verify',verifyEmailRouter)
+app.use('/verify',verifyEmailRouter);
+app.use('/reset',resetMailRouter);
+app.use('/profile',profileRouter);
 app.listen(port, connect() );

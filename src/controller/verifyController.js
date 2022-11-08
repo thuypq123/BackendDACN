@@ -12,11 +12,14 @@ exports.getVerify = async (req, res) => {
         const decryptedString = cryptr.decrypt(token);
         const exitsCustomer = await customer.findOne({_id: decryptedString});
         if(exitsCustomer){
+            exitsCustomer.verify = true;
+            await exitsCustomer.save();
             res.json({status: 'access'});
         }else{
             res.json({status: 'error'});
         }
-    }catch{
+    }catch(e){
+        console.log(e);
         res.json({status: 'error'});
     }
 };
