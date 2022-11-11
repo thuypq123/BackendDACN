@@ -35,7 +35,7 @@ exports.postRegister = async (req, res) => {
 
     }else{
         const newCustomer = await customer.create({
-        fullname: req.body.fullname,
+        fullname: req.body.username,
         avatar: "http://loremflickr.com/640/480/nightlife",
         email: req.body.email,
         password: req.body.password,    
