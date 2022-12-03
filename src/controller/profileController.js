@@ -41,7 +41,6 @@ exports.postEditProfile = async (req, res) => {
 
 exports.getOrdersProfile = async (req, res) => {
     const toke = req.body.token;
-    console.log( req.body);
     const customer_id = jwt.verify(toke, process.env.SECRET).id;
     let orders = await order.find({customer_id: customer_id, saved:'true'}).lean();
     await Promise.all(orders.map(async order => {
@@ -50,7 +49,7 @@ exports.getOrdersProfile = async (req, res) => {
             const getProduct = await product.findById(detail.product_id).lean();
             getProduct.quantity = detail.quantity;
             getProduct.price = detail.price;
-            order.total = order.total + (detail.price * detail.quantity);
+            order.total = order.total;
             return getProduct;
         }));
         order.products = orderProduct;

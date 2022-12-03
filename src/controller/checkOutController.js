@@ -24,6 +24,8 @@ exports.postInforCheckouts = async (req, res) => {
         products: arrProducts,
         total: totalPrice
     };
+    const saveOrder = await orderCustomer.save();
+    console.log(inforCheckOut);
     res.json(inforCheckOut);
 };
 
@@ -40,7 +42,6 @@ exports.postCheckoutInfo = async (req, res) => {
         orderCustomer.status == 'MOMO'? true:false;
         orderCustomer.saved = true;
         const test = await orderCustomer.save();
-        console.log(test);
         res.json(test);
     }catch{
         res.json({status: 'error'});

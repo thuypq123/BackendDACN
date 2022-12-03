@@ -34,6 +34,7 @@ const checkoutRouter = require('./router/checkOutRouter');
 const verifyEmailRouter = require('./router/verifyEmailRouter');
 const resetMailRouter = require('./router/resetMailRouter');
 const profileRouter = require('./router/profileRouter');
+const stripeRouter = require('./router/stripeRouter');
 
 
 app.use('/user',userAuthRouter);
@@ -45,5 +46,6 @@ app.use('/checkout',checkoutRouter);
 app.use('/verify',verifyEmailRouter);
 app.use('/reset',resetMailRouter);
 app.use('/profile',profileRouter);
+app.use('/stripe',stripeRouter);
 
 app.listen(port, connect() );

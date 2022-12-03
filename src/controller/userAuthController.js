@@ -57,9 +57,34 @@ exports.postRegister = async (req, res) => {
             html: html,
           }).then(info => {
             console.log({info});
-          }).catch(console.error);
+          }).catch(console.log('error'));
         console.log(newCustomer);
         res.json({message: 'Đăng ký thành công', status: true});
     }
 };
-
+exports.postSendMail = async (req, res) => {
+    const {token} = req.body;
+    try{
+        const user = jwt.verify(token, process.env.SECRET);
+        const exitsCustomer = await customer.findOne({_id: user.id});
+        if(exitsCustomer){
+            const encryptedString = cryptr.encrypt(exitsCustomer._id);
+            const html = `<h1>hoàn Tất Đăng Ký</h1>
+            <p>Để hoàn tất việc xác nhận, vui lòng nhấn vào nút bên dưới</p>
+            <div style="text-align: center;margin:100px"><a style="text-decoration: none;padding:20px;background: black; color: white" href="http://localhost:3000/verify?token=${encryptedString}">Xác nhận</a></div>`;
+            transporter.sendMail({
+                from: "Lê Minh Thủy", // sender address
+                to: exitsCustomer.email, // list of receivers
+                subject: "Xác Nhận Tài Khoản ✔", // Subject line
+                text: "Đây là thư gửi đến bạn để xác nhận tài khoản", // plain text body
+                html: html,
+              }).then(info => {
+                console.log({info});
+              }).catch(console.log('error'));
+            res.json({status: 'success'});
+        }
+    }catch(e){
+        console.log(e);
+        res.json({status: 'error'});
+    }
+};
